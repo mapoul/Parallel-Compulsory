@@ -25,6 +25,7 @@ namespace Parallel_GUI
     public partial class MainWindow : Window
     {
         PrimeGenerator pg = new PrimeGenerator();
+        bool seqIsSelected = false;
         public MainWindow()
         {
             InitializeComponent();
@@ -44,25 +45,22 @@ namespace Parallel_GUI
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            Button.IsEnabled = false;
+            seqIsSelected = (bool)RadioSeq.IsChecked;
             ListBox.Items.Clear();
+            long start = long.Parse(inputStart.Text);
+            long end = long.Parse(inputEnd.Text);
+
+
             Task t = Task.Factory.StartNew(() =>
             {
 
                 List<long> result = new List<long>();
-                long start = 0;
-                long end = 0;
                 Stopwatch sw = new Stopwatch();
-
-                Dispatcher.Invoke(() =>
-                {
-                    start = long.Parse(inputStart.Text);
-                    end = long.Parse(inputEnd.Text);
-                });
-
 
                 fillProgressBar(start, end);
                 sw.Start();
-                if (RadioSeq.IsChecked == true)
+                if (seqIsSelected == true)
                 {
                     result = pg.GetPrimesSequential(start, end);
                 }
@@ -71,31 +69,53 @@ namespace Parallel_GUI
                     result = pg.GetPrimesParallel(start, end);
                 }
                 sw.Stop();
-                lblTime.Content = "Time: " + sw.ElapsedMilliseconds + " Milliseconds";
+
 
                 Dispatcher.Invoke(() =>
                 {
+                    lblTime.Content = "Time: " + sw.ElapsedMilliseconds + " Milliseconds";
+                    lblAmount.Content = "Total of " + result.Count + " prime numbers found within range";
                     foreach (var item in result)
                     {
                         ListBox.Items.Add(item);
                     }
+                    Button.IsEnabled = true;
                 });
             });
+
         }
 
         private void fillProgressBar(long start, long end)
         {
             Task t = Task.Factory.StartNew(() =>
             {
-                while(pg.GetParallelLong() < end)
+
+                long progress = 0;
+                do
                 {
+                    if (seqIsSelected)
+                    {
+                        progress = pg.GetSeqLong();
+                    }
+                    else
+                    {
+                        progress = pg.GetParallelLong();
+                    }
                     Dispatcher.Invoke(() =>
                     {
-                        ProgressBar.Value = pg.GetParallelLong() / end * 100;
+                        ProgressBar.Value = (double)(progress - start) / (double)(end - start) * 100;
                     });
-                   
-                    Thread.Sleep(100);
-                }
+
+                    Thread.Sleep(10);
+
+                    Dispatcher.Invoke(() =>
+                    {
+                        ProgressBar.Value = 100;
+                    });
+
+                } while (progress < end);
+
+
             });
         }
     }

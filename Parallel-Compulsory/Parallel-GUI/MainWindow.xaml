@@ -5,18 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Parallel_GUI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid RenderTransformOrigin="0.499,0.506">
+        Title="MainWindow" Height="450" Width="900">
+    <Grid RenderTransformOrigin="0.499,0.506" Margin="0,0,3.333,-0.333">
         <ListBox HorizontalAlignment="Left" Height="174" Margin="526,61,0,0" VerticalAlignment="Top" Width="135" x:Name="ListBox"/>
-        <ProgressBar HorizontalAlignment="Left" Height="10" Margin="393,225,0,0" VerticalAlignment="Top" Width="100" x:Name="ProgressBar" Maximum="100" Minimum="0"/>
+        <ProgressBar HorizontalAlignment="Left" Height="10" Margin="258,225,0,0" VerticalAlignment="Top" Width="235" x:Name="ProgressBar" Maximum="100" Minimum="0"/>
         <RadioButton Content="Sequential" HorizontalAlignment="Left" Margin="239,102,0,0" VerticalAlignment="Top" Checked="Sequential_Checked" x:Name="RadioSeq"/>
         <RadioButton Content="Parallel" HorizontalAlignment="Left" Margin="239,123,0,0" VerticalAlignment="Top" Checked="Parallel_Checked"  x:Name="RadioPara"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="107,61,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" x:Name="inputStart" />
         <TextBox HorizontalAlignment="Left" Height="23" Margin="107,147,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" x:Name="inputEnd" />
-        <Button Content="Start" HorizontalAlignment="Left" Margin="126,210,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+        <Button Content="Start" HorizontalAlignment="Left" Margin="126,210,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click" x:Name="Button"/>
         <Label Content="Range Start" HorizontalAlignment="Left" Margin="126,35,0,0" VerticalAlignment="Top"/>
         <Label Content="Range End" HorizontalAlignment="Left" Margin="126,120,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.492,-0.122"/>
         <Label Content="Time:" HorizontalAlignment="Left" Margin="526,251,0,0" VerticalAlignment="Top" x:Name="lblTime"/>
+        <Label Content="Label" HorizontalAlignment="Left" Margin="526,277,0,0" VerticalAlignment="Top" x:Name="lblAmount"/>
 
     </Grid>
 </Window>

@@ -14,33 +14,34 @@ namespace Parallel_Compulsory
         long parallelI = 0;
         String numLock = "";
         String methodLock = "";
-        
+        long seqI = 0;
 
         public List<long> GetPrimesSequential(long first, long last)
         {
             List<long> list = new List<long>();
             bool hasBeenFound = false;
-         
+
 
             for (long i = first; i <= last; i++)
             {
+                seqI = i;
                 hasBeenFound = false;
-                if(i % 2 == 0)
+                if (i % 2 == 0)
                 {
                     continue;
                 }
 
                 for (long j = 3; j <= (long)Math.Sqrt(i); j++)
                 {
-                   if(i%j == 0 && j % 2 != 0)
+                    if (i % j == 0 && j % 2 != 0)
                     {
                         hasBeenFound = true;
                         break;
                     }
                 }
-                if(hasBeenFound == false)
+                if (hasBeenFound == false)
                 {
-                    if(i == 1)
+                    if (i == 1)
                     {
                         list.Add(2);
                     }
@@ -48,9 +49,9 @@ namespace Parallel_Compulsory
                     {
                         list.Add(i);
                     }
-                   
+
                 }
-                
+
             }
 
             return list;
@@ -60,72 +61,8 @@ namespace Parallel_Compulsory
         {
             parallelI = first;
             List<long> list = new List<long>();
-            
-            int amountOfThreads = 2;
-            Task[] tasks = new Task[amountOfThreads];
-            for (int i = 0; i < amountOfThreads; i++)
-            {
-                Task t = Task.Factory.StartNew(() =>
-                {
-                    bool hasBeenFound = false;
-                    long num = 0;
-                    while((num = GetIncrementParallelLong()) <= last)
-                    {
-                        hasBeenFound = false;
-                        if (num % 2 == 0)
-                        {
-                            continue;
-                        }
-                        
-                        for (long j = 3; j <= (long)Math.Sqrt(num); j++)
-                        {
-                            if (num % j == 0 && j % 2 != 0)
-                            {
-                                hasBeenFound = true;
-                                break;
-                            }
-                        }
-                        if (hasBeenFound == false)
-                        {
-                            if (num == 1)
-                            {
-                                lock  (numLock)
-                                {
-                                    list.Add(2);
-                                }
-                                
-                            }
-                            else
-                            {
-                                lock (numLock)
-                                {
-                                    list.Add(num);
-                                }
-                                
-                            }
 
-                        }
-
-                    }
-                }
-                );
-                tasks[i] = t;
-            }
-            Console.WriteLine("Waiting for tasks");
-            Task.WaitAll(tasks);
-            list.Sort();
-            //list.AddRange(con);
-            return list;
-        }
-
-
-        public List<long> GetPrimesParallelConBag(long first, long last)
-        {
-            parallelI = first;
-            List<long> list = new List<long>();
-            ConcurrentBag<long> con = new ConcurrentBag<long>();
-
-            int amountOfThreads = 2;
+            int amountOfThreads = 8;
             Task[] tasks = new Task[amountOfThreads];
             for (int i = 0; i < amountOfThreads; i++)
             {
@@ -135,7 +72,6 @@ namespace Parallel_Compulsory
                     long num = 0;
                     while ((num = GetIncrementParallelLong()) <= last)
                     {
-
                         hasBeenFound = false;
                         if (num % 2 == 0)
                         {
@@ -154,26 +90,26 @@ namespace Parallel_Compulsory
                         {
                             if (num == 1)
                             {
-                                
-                                con.Add(2);
+                                lock (numLock)
+                                {
+                                    list.Add(2);
+                                }
                             }
                             else
                             {
-                                con.Add(num);
+                                lock (numLock)
+                                {
+                                    list.Add(num);
+                                }
                             }
-
                         }
-
                     }
                 }
                 );
                 tasks[i] = t;
             }
-            Console.WriteLine("Waiting for tasks");
             Task.WaitAll(tasks);
-            list = con.ToList();
             list.Sort();
-            //list.AddRange(con);
             return list;
         }
 
@@ -187,12 +123,17 @@ namespace Parallel_Compulsory
                 Interlocked.Increment(ref parallelI);
                 return a;
             }
-            
+
         }
 
         public long GetParallelLong()
         {
             return Interlocked.Read(ref parallelI);
+        }
+
+        public long GetSeqLong()
+        {
+            return Interlocked.Read(ref seqI);
         }
     }
 }
