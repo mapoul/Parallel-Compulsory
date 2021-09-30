@@ -69,7 +69,7 @@ namespace Parallel_Compulsory
                 {
                     bool hasBeenFound = false;
                     long num = 0;
-                    while((num = getParallelLong()) <= last)
+                    while((num = GetIncrementParallelLong()) <= last)
                     {
                         hasBeenFound = false;
                         if (num % 2 == 0)
@@ -133,7 +133,7 @@ namespace Parallel_Compulsory
                 {
                     bool hasBeenFound = false;
                     long num = 0;
-                    while ((num = getParallelLong()) <= last)
+                    while ((num = GetIncrementParallelLong()) <= last)
                     {
 
                         hasBeenFound = false;
@@ -179,7 +179,7 @@ namespace Parallel_Compulsory
 
 
 
-        private long getParallelLong()
+        private long GetIncrementParallelLong()
         {
             lock (methodLock)
             {
@@ -188,6 +188,11 @@ namespace Parallel_Compulsory
                 return a;
             }
             
+        }
+
+        private long GetParallelLong()
+        {
+            return Interlocked.Read(ref parallelI);
         }
     }
 }
