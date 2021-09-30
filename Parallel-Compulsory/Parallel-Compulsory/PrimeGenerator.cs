@@ -30,7 +30,7 @@ namespace Parallel_Compulsory
                     continue;
                 }
 
-                for (long j = 3; j < i; j++)
+                for (long j = 3; j <= (long)Math.Sqrt(i); j++)
                 {
                    if(i%j == 0 && j % 2 != 0)
                     {
@@ -76,8 +76,8 @@ namespace Parallel_Compulsory
                         {
                             continue;
                         }
-
-                        for (long j = 3; j < num; j++)
+                        
+                        for (long j = 3; j <= (long)Math.Sqrt(num); j++)
                         {
                             if (num % j == 0 && j % 2 != 0)
                             {
@@ -142,7 +142,7 @@ namespace Parallel_Compulsory
                             continue;
                         }
 
-                        for (long j = 3; j < num; j++)
+                        for (long j = 3; j <= (long)Math.Sqrt(num); j++)
                         {
                             if (num % j == 0 && j % 2 != 0)
                             {
