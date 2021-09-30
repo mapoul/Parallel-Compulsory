@@ -6,7 +6,13 @@
         xmlns:local="clr-namespace:Parallel_GUI"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+    <Grid RenderTransformOrigin="0.505,0.467">
+        <ListBox HorizontalAlignment="Left" Height="100" Margin="526,135,0,0" VerticalAlignment="Top" Width="100"/>
+        <ProgressBar HorizontalAlignment="Left" Height="10" Margin="393,225,0,0" VerticalAlignment="Top" Width="100"/>
+        <RadioButton Content="Sequential" HorizontalAlignment="Left" Margin="239,102,0,0" VerticalAlignment="Top" Checked="Sequential_Checked" x:Name="RadioSeq"/>
+        <RadioButton Content="Parallel" HorizontalAlignment="Left" Margin="239,123,0,0" VerticalAlignment="Top" Checked="Parallel_Checked"  x:Name="RadioPara"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="107,61,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="107,100,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" MouseEnter="TextBox_MouseEnter" x:Name="text"/>
+
     </Grid>
 </Window>

@@ -23,6 +23,22 @@ namespace Parallel_GUI
         public MainWindow()
         {
             InitializeComponent();
+            RadioSeq.IsChecked = true;
+        }
+
+        private void Sequential_Checked(object sender, RoutedEventArgs e)
+        {
+            RadioPara.IsChecked = false;
+        }
+
+        private void Parallel_Checked(object sender, RoutedEventArgs e)
+        {
+            RadioSeq.IsChecked = false;
+        }
+
+        private void TextBox_MouseEnter(object sender, MouseEventArgs e)
+        {
+            text.Text = "";
         }
     }
 }
