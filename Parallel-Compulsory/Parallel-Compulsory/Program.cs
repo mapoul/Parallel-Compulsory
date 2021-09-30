@@ -31,14 +31,6 @@ namespace Parallel_Compulsory
             Console.WriteLine($"Non parallel {start}  to  {stop} took: {sw.ElapsedMilliseconds}ms");
             Console.WriteLine($"parallel {start}  to  {stop} took: {swp.ElapsedMilliseconds}ms");
 
-            Stopwatch swf = new Stopwatch();
-            swf.Start();
-            List<long> listfom = pg.GetPrimesFormula(start, stop);
-            swf.Stop();
-            Console.WriteLine($"non parallel formula {start}  to  {stop} took: {swf.ElapsedMilliseconds}ms");
-            Console.WriteLine("count non para" + list.Count);
-            Console.WriteLine("count para" + listpar.Count);
-
         }
 
     }
