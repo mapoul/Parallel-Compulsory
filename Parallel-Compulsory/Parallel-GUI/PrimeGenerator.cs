@@ -15,7 +15,7 @@ namespace Parallel_Compulsory
         String numLock = "";
         String methodLock = "";
         long seqI = 0;
-
+        int numberOfThreads = 2;
         public List<long> GetPrimesSequential(long first, long last)
         {
             List<long> list = new List<long>();
@@ -62,9 +62,8 @@ namespace Parallel_Compulsory
             parallelI = first;
             List<long> list = new List<long>();
 
-            int amountOfThreads = 8;
-            Task[] tasks = new Task[amountOfThreads];
-            for (int i = 0; i < amountOfThreads; i++)
+            Task[] tasks = new Task[numberOfThreads];
+            for (int i = 0; i < numberOfThreads; i++)
             {
                 Task t = Task.Factory.StartNew(() =>
                 {
@@ -134,6 +133,11 @@ namespace Parallel_Compulsory
         public long GetSeqLong()
         {
             return Interlocked.Read(ref seqI);
+        }
+
+        public void SetThreads(int threads)
+        {
+            numberOfThreads = threads;
         }
     }
 }

@@ -18,6 +18,8 @@
         <Label Content="Range End" HorizontalAlignment="Left" Margin="126,120,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.492,-0.122"/>
         <Label Content="Time:" HorizontalAlignment="Left" Margin="526,251,0,0" VerticalAlignment="Top" x:Name="lblTime"/>
         <Label Content="Label" HorizontalAlignment="Left" Margin="526,277,0,0" VerticalAlignment="Top" x:Name="lblAmount"/>
+        <Slider HorizontalAlignment="Left" Margin="333,123,0,0" VerticalAlignment="Top" Width="154" Maximum="16" Minimum="1" TickPlacement="BottomRight" IsSnapToTickEnabled="True" x:Name="Slider" ValueChanged="Slider_ValueChanged"/>
+        <Label Content="Amount of threads: " HorizontalAlignment="Left" Margin="358,141,0,0" VerticalAlignment="Top" x:Name="lblSlider"/>
 
     </Grid>
 </Window>

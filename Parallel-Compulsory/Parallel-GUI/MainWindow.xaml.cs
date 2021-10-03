@@ -118,5 +118,17 @@ namespace Parallel_GUI
 
             });
         }
+
+        private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+
+            pg.SetThreads((int)Slider.Value);
+
+            if(lblSlider != null)
+            {
+                lblSlider.Content = "Amount of threads: " + (int)Slider.Value;
+            }
+            
+        }
     }
 }
